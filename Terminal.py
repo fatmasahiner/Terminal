@@ -1,37 +1,55 @@
 import os
 import time
 
+class Commands(dict):
+    def __init__(self,com):
+        self.com = com
+        self.message = os.popen(com).readlines()
+
+    def __repr__(self):
+       self.__setitem__('cmd', self.foo)
+       self.__setitem__('output', self.bar)
+       return super().__repr__()
+
 def Intro():
   print("""---------------Şahan Hasret----------------
-  ---------------Fatma Şahiner----------------""")
+  ---------------Fatma Şahiner----------------
+  ----------------Emir Öztürk-----------------""")
   time.sleep(2)
   print("""Welcome to Linux Easy Terminal
   With this program, you can use linux without knowing the commands.""")
 def LinuxUpgrade():
-  os.system("sudo apt-get upgrade")
+  for msg in Commands("sudo apt-get upgrade").message:
+     print(msg)
   print("UPGRADE IS COMPLETE")
 def LinuxUpdate():
-  os.system("sudo apt-get update")
+  for msg in Commands("sudo apt-get update").message:
+     print(msg)
   print("UPDATE IS COMPLETE")
 def LinuxInstall(packageName):
-  os.system("sudo apt-get install "+ packageName)
+  for msg in Commands("sudo apt-get install "+ packageName).message:
+     print(msg)
   print("PACKAGE IS INSTALL")
 def LinuxSudoRemoveEmpty(directory):
-  os.system("sudo rm "+directory)
+  Commands("sudo rm "+directory)
   print("FOLDER IS REMOVE")
 def LinuxSudoRemoveNotEmpty(directory):
   directory = input("--Drag and Drop Folder to Terminal--")
-  os.system("sudo rm -r "+directory)
+  Commands("sudo rm -r"+directory)
+  print("FOLDER IS REMOVE")
 def LinuxSudoRemoveFile(fileName):
   fileName = input("--Drag and Drop File to Terminal--")
-  os.system("sudo rm "+file)
+  Commands("sudo rm "+fileName)
+  print("FILE IS REMOVE")
 def GitClone(git):
-  os.system("git clone "+git)
+  for msg in Commands("git clone "+git).message:
+     print(msg)
 def CreateFolder(folder):
   folder = input("Write to Folder Name")
-  os.system(folder)
+  Commands("mkdir "+folder)
 def TurkishKeyboard():
-  os.system("setxkbmap tr")
+  Commands("setxkbmap tr")
+  print("KEYBOARD TR")
 
 #--------------------------------------------------
 
